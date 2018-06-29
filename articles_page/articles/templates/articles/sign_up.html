@@ -1,0 +1,12 @@
+{% extends "articles/base.html" %}
+{% block body %}
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.label_tag }}
+            {{ field }} <br>
+            {{ field.errors }}
+        {% endfor %}
+        <button type="submit">Create</button>
+    </form>
+{% endblock %}
