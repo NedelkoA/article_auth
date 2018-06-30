@@ -1,8 +1,0 @@
-{% extends "articles/base.html" %}
-{% block body %}
-    <p>Hello, {{ name }} </p>
-    <a href="{% url 'logout' %}">Logout</a>
-    {% for article in object_list %}
-        {{ article.title }}
-    {% endfor %}
-{% endblock %}

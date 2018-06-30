@@ -1,8 +1,17 @@
 {% extends "articles/base.html" %}
 {% block body %}
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'sign_up' %}">Sign Up</a>
+    {% if user.is_authenticated %}
+        Hello {{ user.username }}
+        {% if perms.articles.add_article %}
+            <a href="{% url 'new_article' %}">Create new article</a>
+        {% endif %}
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'sign_up' %}">Sign Up</a>
+        <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+    {% endif %}
     {% for article in object_list %}
-        {{ article.title }}
+        <br><a href="{% url 'detail_article' article.id%}">{{ article.title }}</a>
     {% endfor %}
 {% endblock %}

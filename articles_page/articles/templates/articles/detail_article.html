@@ -1,0 +1,25 @@
+{% extends "articles/base.html" %}
+{% block body %}
+    {{ object.title }}<br>
+    {{ object.text }}<br>
+    {{ object.status }}<br>
+    {% if user.is_authenticated %}
+        <form action="{% url 'update_article' object.id %}" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == 'status' %}
+                    {% if perms.articles.change_status %}
+                        <input type="checkbox" name="{{ field.name }}" value="LIVE">Live status
+                    {% endif %}
+                {% else %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                {% endif %}
+            {% endfor %}
+            {% if perms.articles.change_status %}
+
+            {% endif %}
+            <button type="submit">Update</button>
+        </form>
+    {% endif %}
+{% endblock %}
