@@ -13,6 +13,11 @@ class IndexView(ListView):
     model = Article
     template_name = 'articles/index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = Category.objects.all()
+        return context
+
 
 class MyLoginView(LoginView):
     template_name = 'articles/login.html'
@@ -63,3 +68,25 @@ class ChangeArticleView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     login_url = 'login'
     success_url = '/articles/'
     template_name = 'articles/detail_article.html'
+
+
+class ReviewArticlesView(LoginRequiredMixin, ListView):
+    model = Article
+    template_name = 'articles/review_articles.html'
+    login_url = 'login'
+    redirect_field_name = '/articles/review_articles'
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect('index')
+        return super().get(request, *args, **kwargs)
+
+
+class ArticlesCategoryView(DetailView):
+    model = Category
+    template_name = 'articles/category.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['articles'] = Article.objects.filter(id=self.kwargs['pk'])
+        return context

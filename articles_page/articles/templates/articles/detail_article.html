@@ -3,22 +3,17 @@
     {{ object.title }}<br>
     {{ object.text }}<br>
     {{ object.status }}<br>
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and perms.articles.change_article and object.status == 'REVIEW' %}
         <form action="{% url 'update_article' object.id %}" method="POST">
             {% csrf_token %}
             {% for field in form %}
                 {% if field.name == 'status' %}
-                    {% if perms.articles.change_status %}
-                        <input type="checkbox" name="{{ field.name }}" value="LIVE">Live status
-                    {% endif %}
+                    <input type="checkbox" name="{{ field.name }}" value="LIVE">Live status
                 {% else %}
                     {{ field.label_tag }}
                     {{ field }}
                 {% endif %}
             {% endfor %}
-            {% if perms.articles.change_status %}
-
-            {% endif %}
             <button type="submit">Update</button>
         </form>
     {% endif %}

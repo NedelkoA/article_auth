@@ -1,10 +1,7 @@
 {% extends "articles/base.html" %}
 {% block body %}
-    {% for category in category_list %}
-        <a href="{% url 'articles_category' category.id %}">{{ category.name_category }}</a><br>
-    {% endfor %}
     {% for article in object_list %}
-        {% if article.status == 'LIVE' %}
+        {% if article.status == 'REVIEW' %}
             <br><a href="{% url 'detail_article' article.id %}">{{ article.title }}</a>
         {% endif %}
     {% endfor %}
