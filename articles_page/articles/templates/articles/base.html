@@ -1,28 +1,37 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'articles/css/style.css' %}" type="text/css">
 </head>
 <body>
 <header>
-    <a href="{% url 'index' %}">Articles</a>
-    {% if user.is_authenticated %}
-        Hello {{ user.username }}
-        {% if perms.articles.add_article %}
-            <a href="{% url 'new_article' %}">Create new article</a>
+    <p><a href="{% url 'index' %}">Articles</a></p>
+    <div class="navigate">
+        {{ perms.articles.add_category }}
+        {% if user.is_authenticated %}
+            <span>You logged as {{ user.username }}</span>
+            <a href="{% url 'index' %}">Home</a>
+            {% if perms.articles.add_article %}
+                <a href="{% url 'new_article' %}">Create new article</a>
+            {% elif perms.articles.change_article and perms.articles.add_category %}
+                <a href="{% url 'review_articles' %}">Review articles</a>
+                <a href="{% url 'add_category' %}">Add new category</a>
+            {% endif %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'sign_up' %}">Sign Up</a>
+            <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
         {% endif %}
-        {% if perms.articles.change_article %}
-            <a href="{% url 'review_articles' %}">Review articles</a>
-        {% endif %}
-        <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'sign_up' %}">Sign Up</a>
-        <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-    {% endif %}
+    </div>
 </header>
-    {% block body %}
-    {% endblock %}
+    <div class="wrapper">
+        {% block body %}
+        {% endblock %}
+    </div>
 </body>
 </html>

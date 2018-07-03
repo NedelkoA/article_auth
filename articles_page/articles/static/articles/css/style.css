@@ -1,0 +1,52 @@
+*{ margin: 0; padding: 0; }
+body, html { height: 100%; width: 100%; }
+body { background-color: #E3D8D8; }
+header {
+	float: left;
+	width: 100%;
+	padding-bottom: 1%;
+	background-color: #1C1111;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.navigate { margin-top: 10px; margin-left: 50%; }
+.navigate > span { color: white; padding-right: 20px; font-size: 1.2em; }
+.navigate > a {
+    padding:13px;
+    height: 100%;
+    display:inline;
+	text-decoration: none;
+	color: white;
+	border-left:1px solid #1C1111;
+	border-right:1px solid #1C1111;
+}
+.navigate > a:hover {
+	border-left:1px solid #bbb;
+	border-right:1px solid #bbb;
+	background-color: #523232;
+	color: grey;
+	transition: all 1s ease;
+}
+header > p > a {
+    position: absolute;
+    color: white;
+    font-size: 1.5em;
+    margin: 5px;
+    text-decoration: none;
+}
+.wrapper {
+    background-color:#F8F6F6;
+    width: 87%;
+    height: auto;
+    margin-left: 7%;
+    padding-bottom:2%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+.wrapper > .categories > p { padding: 5% 0 2% 2%; font-size: 1.3em; }
+.category {
+    padding: 1%;
+    margin: 1% 0 0 2%;
+    border-bottom: 2px solid silver;
+    width: 10%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    text-align: center;
+}

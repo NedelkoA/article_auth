@@ -1,7 +1,14 @@
 {% extends "articles/base.html" %}
 {% block body %}
-    {{ object.title }}<br>
-    {{ object.text }}<br>
+    <div class="article_title">
+        <p>Title: {{ object.title }}</p>
+    </div>
+    <div class="article_creator">
+        <p>Creator: {{ object.user }}</p>
+    </div>
+    <div class="article_text">
+        <p>Text: {{ object.text }}</p>
+    </div>
     {{ object.status }}<br>
     {% if user.is_authenticated and perms.articles.change_article and object.status == 'REVIEW' %}
         <form action="{% url 'update_article' object.id %}" method="POST">
@@ -10,8 +17,10 @@
                 {% if field.name == 'status' %}
                     <input type="checkbox" name="{{ field.name }}" value="LIVE">Live status
                 {% else %}
-                    {{ field.label_tag }}
-                    {{ field }}
+                    {% if field.label != 'User' %}
+                        {{ field.label_tag }}
+                    {% endif %}
+                    <p>{{ field }}</p>
                 {% endif %}
             {% endfor %}
             <button type="submit">Update</button>

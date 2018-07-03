@@ -1,11 +1,17 @@
 {% extends "articles/base.html" %}
 {% block body %}
-    {% for category in category_list %}
-        <a href="{% url 'articles_category' category.id %}">{{ category.name_category }}</a><br>
-    {% endfor %}
-    {% for article in object_list %}
-        {% if article.status == 'LIVE' %}
-            <br><a href="{% url 'detail_article' article.id %}">{{ article.title }}</a>
-        {% endif %}
-    {% endfor %}
+    <div class="categories">
+        Categories:
+        {% for category in category_list %}
+            <a href="{% url 'articles_category' category.id %}">{{ category.name_category }}</a>
+        {% endfor %}
+    </div>
+    <div class="articles">
+        <p>Articles:</p>
+        {% for article in object_list %}
+            {% if article.status == 'LIVE' %}
+                <p><a href="{% url 'detail_article' article.id %}">{{ article.title }}</a></p>
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -1,8 +1,10 @@
 {% extends "articles/base.html" %}
 {% block body %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Create</button>
-    </form>
+    <div class="new_article">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Create</button>
+        </form>
+    </div>
 {% endblock %}
