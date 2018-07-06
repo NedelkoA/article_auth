@@ -10,16 +10,18 @@
 <header>
     <p><a href="{% url 'index' %}">Articles</a></p>
     <div class="navigate">
-        {{ perms.articles.add_category }}
         {% if user.is_authenticated %}
             <span>You logged as {{ user.username }}</span>
             <a href="{% url 'index' %}">Home</a>
-            {% if perms.articles.add_article %}
+            {% if user.is_superuser %}
+                <a href="{% url 'admin_panel' %}">Admin Panel</a>
+            {% elif perms.articles.add_article %}
                 <a href="{% url 'new_article' %}">Create new article</a>
             {% elif perms.articles.change_article and perms.articles.add_category %}
                 <a href="{% url 'review_articles' %}">Review articles</a>
                 <a href="{% url 'add_category' %}">Add new category</a>
             {% endif %}
+            <a href="{% url 'settings' %}">Settings</a>
             <a href="{% url 'logout' %}">Logout</a>
         {% else %}
             <a href="{% url 'index' %}">Home</a>

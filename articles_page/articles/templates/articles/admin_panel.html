@@ -1,0 +1,6 @@
+{% extends "articles/base.html" %}
+{% block body %}
+    {% for user in object_list %}
+        <p><a href="{% url 'status_user' user.id %}">{{ user }}</a></p>
+    {% endfor %}
+{% endblock %}

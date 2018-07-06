@@ -1,0 +1,11 @@
+{% extends "articles/base.html" %}
+{% block body %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Save</button>
+    </form>
+    {% if link %}
+        <a href="https://t.me/Feronbot?start">Added Bot</a>
+    {% endif %}
+{% endblock %}

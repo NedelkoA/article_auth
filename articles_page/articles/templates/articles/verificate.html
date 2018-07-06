@@ -1,0 +1,9 @@
+{% extends "articles/base.html" %}
+{% block body %}
+    {{ perms.foo }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Change</button>
+    </form>
+{% endblock %}

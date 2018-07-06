@@ -13,4 +13,8 @@ urlpatterns = [
     url(r'articles/(?P<pk>[0-9]+)/update$', views.ChangeArticleView.as_view(), name='update_article'),
     url(r'articles/category/(?P<pk>[0-9]+)$', views.ArticlesCategoryView.as_view(), name='articles_category'),
     url(r'articles/category/add$', views.CreateCategoryView.as_view(), name='add_category'),
+    url(r'articles/admin_panel$', views.AdminPanelView.as_view(), name='admin_panel'),
+    url(r'articles/user/(?P<pk>[0-9]+)$', views.ChangeStatusUserView.as_view(), name='status_user'),
+    url(r'articles/verify/(?P<pk>[0-9]+)$', views.VerifyView.as_view(), name='verify'),
+    url(r'articles/settings$', views.SettingsView.as_view(), name='settings'),
 ]

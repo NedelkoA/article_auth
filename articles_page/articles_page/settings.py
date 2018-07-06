@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'social_django',
-
     'articles',
 ]
 
@@ -68,7 +67,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
@@ -172,6 +170,31 @@ LOGGING = {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True
+        },
+    },
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': [
+            'localhost:6379',
+            'localhost:6379',
+            'localhost:6379',
+        ],
+        'OPTIONS': {
+            'DB': 0,
+        },
+    },
+    'my_cache': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': [
+            'localhost:6379',
+            'localhost:6379',
+            'localhost:6379',
+        ],
+        'OPTIONS': {
+            'DB': 1,
         },
     },
 }

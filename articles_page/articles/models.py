@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
-from django.db.models.signals import post_save
-from .signals.handlers import my_handler
 
 
 class Category(models.Model):
@@ -12,14 +10,20 @@ class Category(models.Model):
         return self.name_category
 
 
-class CustomUser(User):
-    telephone = models.CharField(max_length=13, blank=True, validators=[
-        RegexValidator('^\+380\d{9}$',
-                       'Phone number must be entered in the format: \'+380xxxxxxxxx\'.')
-    ])
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, models.CASCADE)
+    telegram_id = models.IntegerField(blank=True, null=True)
+    telephone = models.CharField(
+        max_length=13,
+        blank=True,
+        null=True,
+        validators=[
+            RegexValidator('^\+380\d{9}$',
+                           'Phone number must be entered in the format: \'+380xxxxxxxxx\'.')
+        ])
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
 
 class Article(models.Model):
@@ -45,6 +49,3 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
-
-
-post_save.connect(my_handler, sender=User)
